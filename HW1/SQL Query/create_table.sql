@@ -1,3 +1,5 @@
+--"colors" table
+-- primary key “id”.
 CREATE TABLE public.colors
 (
 	id VARCHAR(15),
@@ -6,16 +8,19 @@ CREATE TABLE public.colors
     is_trans BOOLEAN,
     primary key (id)
 );
-
-CREATE TABLE themes
+--“themes” table
+--primary key “id”
+CREATE TABLE public.themes
 (
 	id VARCHAR(15),
     name VARCHAR(100),
     parent_id VARCHAR(15),
     primary key (id)
 );
-
-CREATE TABLE sets
+--“sets” table
+--primary key “set_num”
+--choose theme_id as foreign key reference from “themes”
+CREATE TABLE public.sets
 (
 	set_num VARCHAR(20),
     name VARCHAR(100),
@@ -25,7 +30,9 @@ CREATE TABLE sets
     primary key (set_num),
     foreign key (theme_id) references themes(id)
 );
-
+--“inventories” table
+--primary key “id”.
+--choose set_num as foreign key reference from “sets”
 CREATE TABLE public.inventories
 (
 	id VARCHAR(15),
@@ -34,7 +41,10 @@ CREATE TABLE public.inventories
     primary key (id),
     foreign key (set_num) references sets(set_num)
 );
-
+--“inventory_sets” table
+--primary key “inventory_id” and “set_num”
+--choose inventory_id as foreign key reference from “inventories”
+--choose set_num as foreign key reference from “sets”
 CREATE TABLE public.inventory_sets
 (
 	inventory_id VARCHAR(15),
@@ -44,14 +54,17 @@ CREATE TABLE public.inventory_sets
     foreign key (inventory_id) references inventories(id),
     foreign key (set_num) references sets(set_num)
 );
-
+--“part_categories” table
+--primary key “id”
 CREATE TABLE public.part_categories
 (
     id VARCHAR(15),
     name VARCHAR(100),
     primary key (id)
 );
-
+--“parts” table
+--primary key “part_num”
+--choose part_cat_id as foreign key reference from “part_categories”
 CREATE TABLE public.parts
 (
     part_num VARCHAR(20),
@@ -60,7 +73,10 @@ CREATE TABLE public.parts
     primary key (part_num),
     foreign key (part_cat_id) references part_categories(id)
 );
-
+--“inventory_parts” table
+--no primary key because there is no unique attribute in “inventory_parts.csv”
+--choose inventory_id as foreign key reference from "inventories"
+--choose color_id as foreign key reference from "colors"
 CREATE TABLE public.inventory_parts
 (
     inventory_id VARCHAR(15),
