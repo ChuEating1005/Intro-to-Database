@@ -12,26 +12,27 @@ WITH
         GROUP BY 
             colors.id, inventory_id, inventory_parts.part_num
     ),
-    total_quantity(themes_name, color_name, total_quantity) AS(
+    total_quantity(theme_id, color_name, total_quantity) AS(
         SELECT 
-            themes.name,
+            sets.theme_id,
             quantity.color_name,
             SUM(quantity.quantity_sum)
         FROM 
-            ((themes JOIN sets ON themes.id = sets.theme_id) 
-            JOIN inventories ON sets.set_num = inventories.set_num) 
+            (sets JOIN inventories ON sets.set_num = inventories.set_num) 
             JOIN quantity ON inventories.id = quantity.inventory_id
         GROUP BY
-            themes.name, quantity.color_name
+            sets.theme_id, quantity.color_name
     )
 SELECT
-    Origin.themes_name AS Theme_name,
+    themes.name AS Theme_name,
     Origin.color_name AS Most_used_color
 FROM
+    themes,
     total_quantity AS Origin
     LEFT OUTER JOIN total_quantity AS Bigger
-        ON Origin.themes_name = Bigger.themes_name AND Origin.total_quantity < Bigger.total_quantity
+        ON Origin.theme_id = Bigger.theme_id AND Origin.total_quantity < Bigger.total_quantity
 WHERE
-    Bigger.themes_name IS NULL
+    themes.id = Origin.theme_id AND
+    Bigger.theme_id IS NULL
 ORDER BY
-    Origin.themes_name
+    themes.name
