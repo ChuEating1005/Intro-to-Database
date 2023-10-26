@@ -3,7 +3,7 @@ WITH
         SELECT themes.name, AVG(sets.num_parts)
         FROM sets, themes
         WHERE themes.id = sets.theme_id
-        GROUP BY themes.name)
+        GROUP BY themes.id)
 SELECT 
     name, part as avg_num_parts
 FROM 
