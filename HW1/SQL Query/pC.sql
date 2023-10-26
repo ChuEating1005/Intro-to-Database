@@ -3,7 +3,7 @@ WITH
         SELECT themes.name, COUNT(sets.name)
         FROM sets, themes
         WHERE themes.id = sets.theme_id
-        GROUP BY themes.name)
+        GROUP BY themes.id)
 SELECT 
     name, total_set as max_set
 FROM 
