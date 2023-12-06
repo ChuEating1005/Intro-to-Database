@@ -16,7 +16,7 @@ CREATE TABLE public.Continents
 
 CREATE TABLE public.Country_Continent
 (
-	Two_Letter_Country_Code     CHAR(3),
+	Two_Letter_Country_Code     CHAR(2),
     Continent_Code              CHAR(2),
     primary key (Two_Letter_Country_Code, Continent_Code),
     foreign key (Two_Letter_Country_Code) references Countries(Two_Letter_Country_Code),
@@ -25,7 +25,7 @@ CREATE TABLE public.Country_Continent
 
 CREATE TABLE public.Policy_Indicators
 (
-    Two_Letter_Country_Code     CHAR(3),
+    Two_Letter_Country_Code     CHAR(2),
     Date                        INT,
 
     C1M                 NUMERIC(3,2),
@@ -82,7 +82,7 @@ CREATE TABLE public.Policy_Indicators
 
 CREATE TABLE public.Statistic
 (
-    Two_Letter_Country_Code     CHAR(3),
+    Two_Letter_Country_Code     CHAR(2),
     Date                        INT,
     PopulationVaccinated        NUMERIC(5,2),
     ConfirmedCases              FLOAT,
@@ -93,7 +93,7 @@ CREATE TABLE public.Statistic
 
 CREATE TABLE public.Indices
 (
-    Two_Letter_Country_Code                   CHAR(3),
+    Two_Letter_Country_Code                   CHAR(2),
     Date                                        INT,
     StringencyIndex_Average_ForDisplay          NUMERIC(10,2),
     GovernmentResponseIndex_Average_ForDisplay  NUMERIC(10,2),
