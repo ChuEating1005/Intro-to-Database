@@ -66,7 +66,7 @@ CREATE TABLE public.Policy_Indicators
     M1                  NUMERIC(3,2),
 
     V1                  INT,
-    V2A                 INT,
+    V2A                 V,
     V2B                 VARCHAR(20),
     V2C                 VARCHAR(20),
     V2D                 INT,
